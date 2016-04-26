@@ -1,5 +1,5 @@
 from Trie import *
-from re import *
+import re
 
 def is_palindrome(word):
     return word == word[::-1]
@@ -52,9 +52,9 @@ dictionary = open('/usr/share/cracklib/cracklib-small', 'r')
 forward = Trie()
 backward = Trie()
 for word in dictionary:
-    if 
-    forward.insert(word.strip())
-    backward.insert(word[::-1].strip())
+    if re.compile('[a-z]+$').match(word):
+        forward.insert(word.strip())
+        backward.insert(word[::-1].strip())
 
 for word in forward.find_words():
     for i in range(len(word)):
