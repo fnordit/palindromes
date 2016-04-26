@@ -47,8 +47,8 @@ def get_palindromes(root, remainder, front, depth):
 
 
 
-dictionary = open('/usr/share/cracklib/cracklib-small', 'r')
-#dictionary = ['a', 'man', 'plan', 'canal', 'panama']
+#dictionary = open('/usr/share/cracklib/cracklib-small', 'r')
+dictionary = ['a', 'man', 'plan', 'canal', 'panama']
 forward = Trie()
 backward = Trie()
 for word in dictionary:
@@ -62,4 +62,4 @@ for word in forward.find_words():
             get_palindromes(word, word[i:], True, 7)
     for i in reversed(range(len(word))):
         if is_palindrome(word[i:]):
-            get_palindromes(word, word[0:i], False, 7)
+            get_palindromes(word, word[0:i][::-1], False, 7)
