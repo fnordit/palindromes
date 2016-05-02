@@ -1,5 +1,7 @@
 from Trie import *
 import re
+import argparse
+import sys
 
 def is_palindrome(word):
     return word == word[::-1]
@@ -45,10 +47,15 @@ def get_palindromes(root, remainder, front, depth):
                 get_palindromes(newroot, newrem, False, depth-1)
     return
 
-
-
-#dictionary = open('/usr/share/cracklib/cracklib-small', 'r')
-dictionary = ['a', 'man', 'plan', 'canal', 'panama']
+parser = argparse.ArgumentParser()
+parser.add_argument("dictionary", help="dictionary file to read, line separated")
+parser.add_argument("length", help="dictionary file to read, line separated", type=int)
+args = parser.parse_args()
+try:
+    dictionary = open(args.dictionary, 'r')
+except:
+    print "Error: invalid dict file."
+    sys.exit()
 forward = Trie()
 backward = Trie()
 for word in dictionary:
@@ -59,7 +66,7 @@ for word in dictionary:
 for word in forward.find_words():
     for i in range(len(word)):
         if is_palindrome(word[0:i]):
-            get_palindromes(word, word[i:], True, 7)
+            get_palindromes(word, word[i:], True, args.length)
     for i in reversed(range(len(word))):
         if is_palindrome(word[i:]):
-            get_palindromes(word, word[0:i][::-1], False, 7)
+            get_palindromes(word, word[0:i][::-1], False, args.length)
