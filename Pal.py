@@ -51,13 +51,13 @@ def get_palindromes(filename, length, function, regex):
         print "Error: invalid dict file."
         sys.exit()
 
-
     forward = Trie()
     backward = Trie()
     for word in dictionary:
         if re.compile(regex).match(word):
             forward.insert(word.strip())
             backward.insert(word[::-1].strip())
+    dictionary.close()
 
     for word in forward.find_words():
         for i in range(len(word)):
